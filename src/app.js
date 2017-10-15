@@ -4,7 +4,6 @@ const path = require("path")
 const logger = require("morgan")
 const bodyParser = require("cookie-parser")
 const cookieParser = require('cookie-parser');
-const dashboard = require("./routes/index")
 const app = express()
 
 // view engine setup
@@ -14,7 +13,7 @@ app.set("view engine", "pug")
 app.use(logger(process.env.LOG_ENV))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false, }))
-app.use(express.static(path.join(__dirname, "public"))) //public folder!
+app.use(express.static(path.join(__dirname, "/../public")))
 app.use(cookieParser())
 
 //load exchange data
@@ -22,8 +21,7 @@ app.use(cookieParser())
 /*
 * Routes
 */
-app.use("/", posts)
-app.use("/", users)
+
 
 /*
 * Server
