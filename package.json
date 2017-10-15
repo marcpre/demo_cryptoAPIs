@@ -1,0 +1,29 @@
+{
+  "name": "CryptoTracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitfinex-api-node": "^1.0.4",
+    "bitflyer-node": "0.0.3",
+    "btc-china": "0.0.7",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "knex": "^0.13.0",
+    "kraken-api": "^1.0.0",
+    "morgan": "^1.9.0",
+    "okcoin-china": "0.0.7",
+    "pg": "^7.3.0",
+    "poloniex-api-node": "^1.3.1",
+    "pug": "^2.0.0-rc.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "markhughes/cryptotracker",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Mark Hughes",
+            "email": "m@rkhugh.es"
+        }
+    ],
+    "require": {
+        "catfan/Medoo": "^1.4",
+        "vlucas/phpdotenv": "^2.4"
+    }
+}
