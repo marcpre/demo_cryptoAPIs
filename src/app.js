@@ -5,7 +5,11 @@ const logger = require("morgan")
 const bodyParser = require("cookie-parser")
 const cookieParser = require('cookie-parser');
 const app = express()
-const service = require("./service/ticker.js")
+const scheduler = require("./scheduler/scheduler.js")
+
+//start scheduler
+const data = scheduler.runSchedulers()
+console.log(data)
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"))
@@ -17,13 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false, }))
 app.use(express.static(path.join(__dirname, "/../public")))
 app.use(cookieParser())
 
-//load exchange data
-service.callTickers()
-
-/*
-* Routes
-*/
-
+//routes
 
 /*
 * Server
