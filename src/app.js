@@ -3,9 +3,13 @@ const express = require("express")
 const path = require("path")
 const logger = require("morgan")
 const bodyParser = require("cookie-parser")
-const cookieParser = require('cookie-parser');
-const app = express()
+const cookieParser = require('cookie-parser')
+
 const service = require("./service/scheduler")
+
+const index = require('./routes/index')
+
+const app = express()
 
 // exception handling
 process.on("uncaughtException", err =>
@@ -30,11 +34,8 @@ app.use(cookieParser())
 //load exchange data
 service.runScheduler()
 
-/*
-* Routes
-*/
-
-
+//routes
+app.use('/', index)
 
 //Start Server
 const port = process.env.APP_PORT || 8080
