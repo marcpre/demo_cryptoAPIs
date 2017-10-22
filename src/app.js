@@ -5,7 +5,7 @@ const logger = require("morgan")
 const bodyParser = require("cookie-parser")
 const cookieParser = require('cookie-parser');
 const app = express()
-const service = require("./service/ticker.js")
+const service = require("./service/scheduler")
 
 // exception handling
 process.on("uncaughtException", err =>
@@ -14,6 +14,8 @@ console.error("uncaught exception: ", err)
 process.on("unhandledRejection", (reason, p) =>
 console.error("unhandled rejection: ", reason, p)
 )
+
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"))
@@ -26,21 +28,19 @@ app.use(express.static(path.join(__dirname, "/../public")))
 app.use(cookieParser())
 
 //load exchange data
-service.callTickers()
+service.runScheduler()
 
 /*
 * Routes
 */
 
 
-/*
-* Server
-*/
+
 //Start Server
 const port = process.env.APP_PORT || 8080
 const host = process.env.APP_HOST || "localhost"
 
-app.listen(port, function() {
+app.listen(port, () => {
   console.log("Listening on " + host + ":" + port)
 })
 
