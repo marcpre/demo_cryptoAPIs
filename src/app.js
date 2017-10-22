@@ -7,6 +7,14 @@ const cookieParser = require('cookie-parser');
 const app = express()
 const service = require("./service/ticker.js")
 
+// exception handling
+process.on("uncaughtException", err =>
+console.error("uncaught exception: ", err)
+)
+process.on("unhandledRejection", (reason, p) =>
+console.error("unhandled rejection: ", reason, p)
+)
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"))
 app.set("view engine", "pug")
