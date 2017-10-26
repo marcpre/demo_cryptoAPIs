@@ -13,6 +13,7 @@
   "dependencies": {
     "bitfinex-api-node": "^1.0.4",
     "bitflyer-node": "0.0.3",
+    "body-parser": "^1.18.2",
     "btc-china": "0.0.7",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
