@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const jsonframe = require('jsonframe-cheerio')
 const got = require('got')
 
-async function scrapCoinmarketCap() {
+async function scrapCoinmarketCapOverview() {
   const url = 'https://coinmarketcap.com/all/views/all/'
   const html = await got(url)
   const $ = cheerio.load(html.body)
@@ -10,51 +10,84 @@ async function scrapCoinmarketCap() {
   jsonframe($) // initializing the plugin
 
   const frame = {
-    Coin: 'td.no-wrap.currency-name > a',
-    Symbol: 'td.no-wrap.text-right.circulating-supply > a > span.hidden-xs',
-    Url: 'td.no-wrap.currency-name > a @ href',
-    Price: 'td:nth-child(5) > a',
-    MarketCap: 'td.no-wrap.market-cap.text-right',
-    Volume_24h: 'td:nth-child(5) > a @ data-usd',
-    Circulating_Supply: 'td.no-wrap.text-right.circulating-supply > a @ data-supply',
-    Change_24h: 'td.no-wrap.percent-24h.text-right.positive_change',
+    currency: {
+      _s: 'tr', // the selector
+      _d: [{ // allow you to get an array of data, not just the first item
+        CoinName: 'td.no-wrap.currency-name > a',
+        Url: 'td.no-wrap.currency-name > a @ href',
+        Symbol: 'td.text-left.col-symbol',
+        Price: 'td:nth-child(5) > a',
+        MarketCap: 'td.no-wrap.market-cap.text-right',
+        CirculatingSupply: 'td.no-wrap.text-right.circulating-supply > a @ data-supply',        
+        Volume24h: 'td:nth-child(7) > a @ data-usd',
+        Twitter: '',
+        Reddit: '',
+        Website1: '',
+        Website2: '',
+        Website3: '',
+        Website4: '',        
+        MessageBoard1: '',
+        MessageBoard2: '',
+        MessageBoard3: '',
+      }],
+    },
   }
 
-  const data = JSON.parse($('tbody').scrape(frame, {
+  const data = $('body').scrape(frame, {
     string: true,
-  }))
-  console.log(data)
+  })
+  
+  return data
+}
 
-  for (let m = 0; m < data.length; m++) {
-    let o = data[m]
-    console.log(o['Url'])
-    data[m].Url = `www.https://coinmarketcap.com${o.Url}`
-  }
-
-  console.log(data)
-
-  for (let i = 0; i < data.length; i++) {
-    let urlObj = data[i]
-    const htmlObj = await got(urlObj)
-    const $Obj = cheerio.load(htmlObj.body)
+async function scrapCoinmarketCapSubPages() {
+  const data = await scrapCoinmarketCapOverview()
+  
+  for (var i = 0;i < data.length; i += 1) {
+    const url = data.Url
+  
+    const html = await got(url)
+    const $ = cheerio.load(html.body)
+  
     jsonframe($)
-
-    const frameObj = {
-      Coin: 'body > div.container > div > div.col-xs-12.col-sm-12.col-md-12.col-lg-10 > div:nth-child(5) > div.col-xs-6.col-sm-4.col-md-4 > h1',
-      Symbol: 'body > div.container > div > div.col-xs-12.col-sm-12.col-md-12.col-lg-10 > div:nth-child(5) > div.col-xs-6.col-sm-4.col-md-4 > h1 > small.bold.hidden-xs',
-      Url: urlObj,
-      Logo: 'body > div.container > div > div.col-xs-12.col-sm-12.col-md-12.col-lg-10 > div:nth-child(5) > div.col-xs-6.col-sm-4.col-md-4 > h1 > img @ src',
-      Twitter: 'body > div > div.timeline-Header.timeline-InformationCircle-widgetParent > h1 > span > a',
-      Reddit: '#reddit > div > div.reddit-header > h4 > a:nth-child(2) @ href ',
+    
+    const frame = {
+      currency: {
+        _s: 'tr', // the selector
+        _d: [{ // allow you to get an array of data, not just the first item
+          CoinName: 'td.no-wrap.currency-name > a',
+          Url: 'td.no-wrap.currency-name > a @ href',
+          Symbol: 'td.text-left.col-symbol',
+          Price: 'td:nth-child(5) > a',
+          MarketCap: 'td.no-wrap.market-cap.text-right',
+          CirculatingSupply: 'td.no-wrap.text-right.circulating-supply > a @ data-supply',        
+          Volume24h: 'td:nth-child(7) > a @ data-usd',
+          Twitter: '',
+          Reddit: '',
+          Website1: '',
+          Website2: '',
+          Website3: '',
+          Website4: '',        
+          MessageBoard1: '',
+          MessageBoard2: '',
+          MessageBoard3: '',
+        }],
+      },
     }
-/*
-    const newData[i] = JSON.parse($('body').scrape(frame, {
+  
+    const buffer = $('body').scrape(frame, {
       string: true,
-    }))
-*/
+    })
+    
+    //push to result array
+    res.
   }
+  
+ // initializing the plugin
+
+
+  
+  return data
 }
 
-module.exports = {
-  scrapCoinmarketCap,
-}
+scrapCoinmarketCapOverview()
