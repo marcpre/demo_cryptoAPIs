@@ -27,7 +27,7 @@ async function scrapCoinmarketCapOverview() {
   const data = $('body').scrape(frame, {
     string: true,
   })
-
+  
   return data
 }
 
