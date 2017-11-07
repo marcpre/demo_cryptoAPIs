@@ -5,7 +5,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const service = require('./service/scheduler')
+const scheduler = require('./service/scheduler')
 const index = require('./routes/index')
 
 const app = express()
@@ -15,7 +15,6 @@ process.on('uncaughtException', err =>
   console.error('uncaught exception: ', err))
 process.on('unhandledRejection', (reason, p) =>
   console.error('unhandled rejection: ', reason, p))
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -27,8 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, '/../public')))
 app.use(cookieParser())
 
+// load scrapper
+scheduler.runCoinMarketCapScheduler()
 // load exchange data
-service.runScheduler()
+scheduler.runTickerScheduler()
 
 // routes
 app.use('/', index)
