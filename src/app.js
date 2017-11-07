@@ -5,8 +5,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 
-const service = require('./service/scheduler')
-const scrapper = require('./scrapper/coinmarketScrapper')
+const scheduler = require('./service/scheduler')
 const index = require('./routes/index')
 
 const app = express()
@@ -28,9 +27,9 @@ app.use(express.static(path.join(__dirname, '/../public')))
 app.use(cookieParser())
 
 // load scrapper
-scrapper.scrapCoinmarketCap()
+scheduler.runCoinMarketCapScheduler()
 // load exchange data
-service.runScheduler()
+scheduler.runTickerScheduler()
 
 // routes
 app.use('/', index)
