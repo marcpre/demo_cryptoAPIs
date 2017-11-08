@@ -1,6 +1,7 @@
 const cheerio = require('cheerio')
 const jsonframe = require('jsonframe-cheerio')
 const got = require('got')
+const fs = require('fs')
 
 async function scrapCoinmarketCapOverview() {
   const url = 'https://coinmarketcap.com/all/views/all/'
@@ -27,7 +28,14 @@ async function scrapCoinmarketCapOverview() {
   const data = $('body').scrape(frame, {
     string: true,
   })
-  
+
+  fs.writeFile('../data/allCoins.json', data, 'utf8', (err) => {
+    if (err) {
+      return console.log(err)
+    }
+    console.log('The file was saved!')
+  })
+
   return data
 }
 
