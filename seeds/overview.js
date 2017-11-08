@@ -23,9 +23,10 @@ exports.seed = async(knex, Promise) => {
             })
           }
         })
-      } catch (err) {
+        return knex('overview').insert(coins)
+      }
+      catch (err) {
         console.log(err)
       }
-      return knex('users').insert(coins)
     })
 }
