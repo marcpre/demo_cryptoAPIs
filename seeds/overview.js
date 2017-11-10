@@ -2,7 +2,6 @@ const scrapper = require('../src/scrapper/coinmarketScrapper')
 
 exports.seed = async(knex, Promise) => {
   return knex('overview').del()
-    .then(() => knex('overview').del())
     .then(async() => {
       try {
         const res = await scrapper.scrapCoinmarketCapOverview()
