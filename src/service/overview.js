@@ -1,8 +1,8 @@
 const knex = require('../connection/db.js')
-const scrapper = require('../scrapper/coinmarketScrapper')
 
+/*
 async function insertOverview(coinname, marketcap, price, volume, circulatingSupply, change, createdAt, updatedAt, deletedAt) {
-  
+
   const coin = {
     coinname,
     marketcap,
@@ -35,8 +35,15 @@ async function updateOverview(id, coinname, marketcap, price, volume, circulatin
   }).first()
     .update(coin)
 }
+*/
+
+async function getAllOverview() {
+  const overview = await knex('overview').select()
+  return overview
+}
 
 module.exports = {
-  insertOverview,
-  updateOverview,
+//  insertOverview,
+//  updateOverview,
+  getAllOverview,
 }

@@ -9,17 +9,10 @@ block content
 				th Last Name
 				th Username
 		tbody
-			tr
-				th(scope='row') 1
-				td Mark
-				td Otto
-				td @mdo
-			tr
-				th(scope='row') 2
-				td Jacob
-				td Thornton
-				td @fat
-			tr
-				th(scope='row') 3
-				td(colspan='2') Larry the Bird
-				td @twitter
+            each coin in overviewList
+                tr
+                  td
+                    a(href='/single/' + coin.id) 
+                      =coin.name
+                  td= coin.symbol
+                  td= coin.createdAt
